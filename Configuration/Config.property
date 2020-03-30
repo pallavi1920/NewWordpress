@@ -1,0 +1,6 @@
+ChromeDriver=C:\Users\admin\eclipse-workspace\Sample-selenium-sample\src\test\resources\binaries\chromedriver.exe
+
+firefoxDriver=C:\Users\admin\eclipse-workspace\Sample-selenium-sample\src\test\resources\binaries\geckodriver.exe
+
+url=https://www.facebook.com/
+
