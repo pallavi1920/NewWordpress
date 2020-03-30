@@ -40,7 +40,7 @@ driver.quit();
 @DataProvider(name="wordpress")
 public Object[][] passData() {
 
-ExcelDataConfig configExcel=new ExcelDataConfig("C:\\Users\\admin\\eclipse-workspace\\NewWordpress\\src\\test\\resources\\xls\\maven1.xlsx");
+ExcelDataConfig configExcel=new ExcelDataConfig("");
 int noofrows=configExcel.getRowCount(0);
 Object[][] data=new Object[noofrows][3];
 

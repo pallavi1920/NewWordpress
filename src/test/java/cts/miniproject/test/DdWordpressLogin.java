@@ -1,54 +1,48 @@
 package cts.miniproject.test;
 
-	import org.openqa.selenium.By;
-	import org.openqa.selenium.WebDriver;
-	import org.openqa.selenium.chrome.ChromeDriver;
-	import org.testng.Assert;
-	import org.testng.annotations.AfterMethod;
-	import org.testng.annotations.DataProvider;
-	import org.testng.annotations.Test;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.testng.annotations.AfterMethod;
+import org.testng.annotations.DataProvider;
+import org.testng.annotations.Test;
 
-import cts.miniproject.utility.ExcelDataConfig;
+public class DdWordpressLogin {
+WebDriver driver;
+@Test(dataProvider="wordpress")
+public void loginToWordpress(String username,String password) {
 
+System.setProperty("webdriver.chrome.driver", "C:\\Users\\admin\\eclipse-workspace\\NewWordpress\\src\\test\\resources\\binaries\\chromedriver.exe");
+driver=new ChromeDriver();
 
-	public class DdWordpressLogin {
+driver.get("http://demosite.center/wordpress/wp-login.php");
+driver.manage().window().maximize();
+driver.findElement(By.id("user_login")).sendKeys(username);
+driver.findElement(By.id("user_pass")).sendKeys(password);
+driver.findElement(By.xpath("//input[@id='user_pass']")).click();
 
-	WebDriver driver;
-	@Test(dataProvider="wordpress")
-	public void loginToWordpress(String username,String password) throws Exception {
+System.out.println(driver.getTitle());
+}
+@AfterMethod
+public void tearDown() {
+driver.quit();
+}
 
-	System.setProperty("webdriver.chrome.driver", "C:\\Users\\admin\\eclipse-workspace\\NewWordpress\\src\\test\\resources\\binaries\\chromedriver.exe");
-	driver=new ChromeDriver();
+@DataProvider(name="wordpress")
+public Object[][] passData() {
 
-	driver.get("http://demosite.center/wordpress/wp-login.php");
-	driver.manage().window().maximize();
-	driver.findElement(By.id("user_login")).sendKeys(username);
-	driver.findElement(By.id("user_pass")).sendKeys(password);
-	driver.findElement(By.xpath("//input[@id='wp-submit']")).click();
+Object[][] data=new Object[3][2];
 
+data[0][0]="admin";
+data[0][1]="demo123";
 
-	Assert.assertEquals("http://demosite.center/wordpress/wp-admin/", driver.getCurrentUrl());
+data[1][0]="admin";
+data[1][1]="demo123";
 
-	System.out.println(driver.getCurrentUrl());
-	}
-	@AfterMethod
-	public void tearDown() {
-	driver.quit();
-	}
+data[2][0]="admin";
+data[2][1]="demo123";
 
-	@DataProvider(name="wordpress")
-	public Object[][] passData() {
-
-		ExcelDataConfig configExcel=new ExcelDataConfig("C:\\Users\\admin\\eclipse-workspace\\NewWordpress\\src\\test\\resources\\xls\\maven1.xlsx");
-		int noofrows=configExcel.getRowCount(0);
-		Object[][] data=new Object[noofrows][2];
-
-		for(int i=0;i<noofrows; i++) {
-		data[i][0]=configExcel.getData(0, i, 0);
-		data[i][1]=configExcel.getData(0, i, 1);
-		}
-
-	return data;
-	}
+return data;
+}
 
 }
